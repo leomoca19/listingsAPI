@@ -8,7 +8,7 @@
 *
 * Name: Leonardo de la Mora Caceres Student ID: 152877205 Date: Jan-15-2025
 *
-* Published URL: ___________________________________________________________
+* Published URL: https://listings-api-eight.vercel.app
 *
 ********************************************************************************/
 
