@@ -20,7 +20,7 @@ const mongoose = require('mongoose')
 const ListingsDB = require('./modules/listingsDB.js')
 const db = new ListingsDB()
 
-const HTTP_PORT = process.env.PORT || 8080;
+const HTTP_PORT = 8080;
 
 const app = express()
 
@@ -102,7 +102,7 @@ app.delete('/api/listings/:id', async (req, res) => {
         if (!deletedListing) {
             return res.status(404).json({ error: 'Listing not found'})
         }
-        
+
         res.status(200).json(listing)
     } catch (err) {
         res.status(500).json(err)
