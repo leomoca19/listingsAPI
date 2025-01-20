@@ -64,7 +64,7 @@ app.get('/api/listings', async (req, res) => {
 
 app.get('/api/listings/:id', async (req, res) => {
     try {
-        const id = req.body.id
+        const id = req.body._id
         const listing = await db.getAllListings(id)
 
         if (!listing) {
@@ -79,7 +79,7 @@ app.get('/api/listings/:id', async (req, res) => {
 
 app.put('/api/listing/:id', async (req, res) => {
     try {
-        const id = req.body.id
+        const id = req.body._id
         const data = req.body
         const updatedListing = await db.updateListingById(data, id)
 
@@ -96,7 +96,7 @@ app.put('/api/listing/:id', async (req, res) => {
 
 app.delete('/api/listings/:id', async (req, res) => {
     try {
-        const id = req.body.id
+        const id = req.body._id
         const deletedListing = await db.deleteListingById(id)
 
         if (!deletedListing) {
