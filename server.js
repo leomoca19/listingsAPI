@@ -53,7 +53,10 @@ app.post('/api/listings', async (req, res) => {
 app.get('/api/listings', async (req, res) => {
 
     try {
-        const {page, perPage, name = null} = req.query
+        const page = parseInt(req.query.page)
+        const perPage = parseInt(req.query.perPage)
+        const name = req.query.name || null
+
         res.status(200).json(await db.getAllListings(page, perPage, name))
     } catch (err) { 
         console.log(err)
@@ -64,7 +67,8 @@ app.get('/api/listings', async (req, res) => {
 
 app.get('/api/listings/:id', async (req, res) => {
     try {
-        const listing = await db.getListingById(req.params.id)
+        const id = parseInt(req.params.id)
+        const listing = await db.getListingById(id)
 
         if (!listing) {
             return res.status(404).json({ error: 'Listing not found'})
@@ -79,7 +83,7 @@ app.get('/api/listings/:id', async (req, res) => {
 
 app.put('/api/listing/:id', async (req, res) => {
     try {
-        const id = req.params.id
+        const id = parseInt(req.params.id)
         const data = req.body
         const updatedListing = await db.updateListingById(data, id)
 
@@ -97,7 +101,7 @@ app.put('/api/listing/:id', async (req, res) => {
 
 app.delete('/api/listings/:id', async (req, res) => {
     try {
-        const id = req.params.id
+        const id = parseInt(req.params.id)
         const deletedListing = await db.deleteListingById(id)
 
         if (!deletedListing) {
