@@ -57,7 +57,13 @@ app.get('/api/listings', async (req, res) => {
         const perPage = parseInt(req.query.perPage)
         const name = req.query.name || null
 
-        res.status(200).json(await db.getAllListings(page, perPage, name))
+        const listing = await db.getAllListings(page, perPage, name)
+
+        if(!listing){
+            return res.status(404).json({error: 'Listing(s) not found'})
+        }
+
+        res.status(200).json(listing)
     } catch (err) { 
         console.log(err)
         res.status(500)
