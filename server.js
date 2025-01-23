@@ -14,9 +14,8 @@
 
 const express = require('express')
 const cors = require('cors')
-const config = require('dotenv').config()
+const config = require('dotenv').config()  
 const path = require('path')
-const mongoose = require('mongoose')
 const ListingsDB = require('./modules/listingsDB.js')
 const db = new ListingsDB()
 
@@ -40,46 +39,47 @@ app.get('/', (req, res) =>{
 })
 
 app.post('/api/listings', async (req, res) => {
+    
     try {
-        const data = req.body
-        const newListing = await db.addNewListing(data)
-        res.status(201).json(newListing)
+        const newListing = await db.addNewListing(req.body)
+        res.status(200).json(newListing)
     } catch (err) {
-        res.status(500).json(err)
+        console.log(err)
+        res.json(500)
     }
+
 })
-
+        
 app.get('/api/listings', async (req, res) => {
-    try {
-        const page = parseInt(res.body.page) || 1
-        const perPage = parseInt(res.body.perPage) || 10
-        const name = req.query.name || null
 
-        const listings = await db.getAllListings(page, perPage, name)
-        res.status(200).json(listings)
-    } catch (err) {
-        res.status(500).json(err)
+    try {
+        const {page, perPage, name = null} = req.query
+        res.status(200).json(await db.getAllListings(page, perPage, name))
+    } catch (err) { 
+        console.log(err)
+        res.status(500)
     }
+
 })
 
 app.get('/api/listings/:id', async (req, res) => {
     try {
-        const id = req.body._id
-        const listing = await db.getAllListings(id)
+        const listing = await db.getListingById(req.params.id)
 
         if (!listing) {
             return res.status(404).json({ error: 'Listing not found'})
         }
 
         res.status(200).json(listing)
-    } catch (err) {
-        res.status(500).json(err)
+    } catch (err) { 
+        console.log(err)
+        res.status(500)
     }
 })
 
 app.put('/api/listing/:id', async (req, res) => {
     try {
-        const id = req.body._id
+        const id = req.params.id
         const data = req.body
         const updatedListing = await db.updateListingById(data, id)
 
@@ -88,23 +88,28 @@ app.put('/api/listing/:id', async (req, res) => {
         }
 
         res.status(200).json(listing)
-    } catch (err){
-        res.status(500).json(err)
+    } catch (err) { 
+        console.log(err)
+        res.status(500)
     }
 
 })
 
 app.delete('/api/listings/:id', async (req, res) => {
     try {
-        const id = req.body._id
+        const id = req.params.id
         const deletedListing = await db.deleteListingById(id)
 
         if (!deletedListing) {
             return res.status(404).json({ error: 'Listing not found'})
         }
-
-        res.status(200).json(listing)
-    } catch (err) {
-        res.status(500).json(err)
+        
+        res.status(200).json({
+            message: 'successful delete', 
+            data: deletedListing
+        })
+    } catch (err) { 
+        console.log(err)
+        res.status(500)
     }
 })
