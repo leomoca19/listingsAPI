@@ -22,7 +22,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Leonardo Caceres - Airbnb Listings</a>
+            <a class="navbar-brand" href="#"><b>Leonardo Caceres - Airbnb Listings</b></a>
             <div class="justify-content-end" id="navbarSupportedContent">
                 <form class="d-flex" id="searchForm">
                     <input class="form-control me-2" id="name" type="search" placeholder="Listing Name" aria-label="Search">
@@ -32,6 +32,57 @@
             </div>
         </div>
     </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table" id="listingsTable">
+                    <thead>
+                        <tr>
+                            <td><b>Name</b></td>
+                            <td><b>Type</b></td>
+                            <td><b>Location</b></td>
+                            <td><b>Summary</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li class="page-item">
+                        <a class="page-link" id="previous-page" href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"><a class="page-link" id="current-page" href="#"></a></li>
+                      <li class="page-item">
+                        <a class="page-link" id="next-page" href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="detailsModal" tabindex="-1" id="exampleModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
 </body>
 
 </html>
